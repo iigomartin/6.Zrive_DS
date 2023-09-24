@@ -53,11 +53,11 @@ def json_to_df(json_API):
 def calculate_statistics(meteo_data):
     AVG_temp=meteo_data["temperature_2m_mean"].mean()
     SD_temp=meteo_data["temperature_2m_mean"].std()
-    AVG_prec=meteo_data["precipitation_sum"].mean() 
+    AVG_precip=meteo_data["precipitation_sum"].mean() 
     SD_precip=meteo_data["precipitation_sum"].std()              
     AVG_soil=meteo_data["soil_moisture_0_to_10cm_mean"].mean()
     SD_soil=meteo_data["soil_moisture_0_to_10cm_mean"].std() 
-    return {"AVG_temperature_2m_mean":AVG_temp,"SD_temperature_2m_mean":SD_temp,"AVG_precipitation_sum":AVG_prec,
+    return {"AVG_temperature_2m_mean":AVG_temp,"SD_temperature_2m_mean":SD_temp,"AVG_precipitation_sum":AVG_precip,
             "SD_precipitation_sum":SD_precip,"AVG_soil_moisture_0_to_10cm_mean":  AVG_soil,
             "SD_soil_moisture_0_to_10cm_mean":SD_soil}
 
