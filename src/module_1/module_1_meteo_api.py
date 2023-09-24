@@ -61,7 +61,7 @@ def calculate_statistics(meteo_data):
             "SD_precipitation_sum":SD_precip,"AVG_soil_moisture_0_to_10cm_mean":  AVG_soil,
             "SD_soil_moisture_0_to_10cm_mean":SD_soil}
 
-def represent_city(meteo_data):
+def represent_city(meteo_data):  # sourcery skip: extract-duplicate-method
     meteo_data[["Year","Month","Day"]]=meteo_data["time"].str.split("-", expand=True)
     meteo_data=meteo_data.drop(columns=["time","Month","Day"])
     meteo_grouped=meteo_data.groupby("Year").mean()
