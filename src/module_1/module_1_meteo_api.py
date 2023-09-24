@@ -7,11 +7,14 @@ COORDINATES = {
 VARIABLES = "temperature_2m_mean,precipitation_sum,soil_moisture_0_to_10cm_mean"
 import requests
 import pandas as pd
+import matplotlib.pyplot as plt
 
 def main():
     print("Exercise module 1")
     meteo_data_Madrid=get_data_meteo_api(COORDINATES["Madrid"])
     statistics=calculate_statistics(meteo_data_Madrid)
+    print(statistics)
+    represent_city(meteo_data_Madrid)
     
     raise NotImplementedError
 
@@ -25,10 +28,8 @@ def get_data_meteo_api(city):
         API_URL_city=API_URL+"latitude="+str(city.get("latitude"))\
         +"&longitude="+str(city.get("longitude"))+"&start_date=1950-01-01&end_date=2050-12-31"\
         +"&daily="+VARIABLES
-        
         json_API=connectAPI(API_URL_city)
-        json_df=json_to_df(json_API)
-        return json_df
+        return json_to_df(json_API)
 
 def connectAPI(api_url):
     r = requests.get(api_url)
@@ -47,11 +48,38 @@ def json_to_df(json_API):
     del json_API["elevation"]
     del json_API["daily_units"]
     json_API=json_API["daily"]
-    json_df=pd.DataFrame.from_dict(json_API)
-    return json_df
+    return pd.DataFrame.from_dict(json_API)
 
 def calculate_statistics(meteo_data):
-    print("indevelopment")
-    print(meteo_data.dtypes)
+    AVG_temp=meteo_data["temperature_2m_mean"].mean()
+    SD_temp=meteo_data["temperature_2m_mean"].std()
+    AVG_prec=meteo_data["precipitation_sum"].mean() 
+    SD_precip=meteo_data["precipitation_sum"].std()              
+    AVG_soil=meteo_data["soil_moisture_0_to_10cm_mean"].mean()
+    SD_soil=meteo_data["soil_moisture_0_to_10cm_mean"].std() 
+    return {"AVG_temperature_2m_mean":AVG_temp,"SD_temperature_2m_mean":SD_temp,"AVG_precipitation_sum":AVG_prec,
+            "SD_precipitation_sum":SD_precip,"AVG_soil_moisture_0_to_10cm_mean":  AVG_soil,
+            "SD_soil_moisture_0_to_10cm_mean":SD_soil}
+
+def represent_city(meteo_data):
+    meteo_data[["Year","Month","Day"]]=meteo_data["time"].str.split("-", expand=True)
+    meteo_data=meteo_data.drop(columns=["time","Month","Day"])
+    meteo_grouped=meteo_data.groupby("Year").mean()
+    
+    meteo_grouped["temperature_2m_mean"].plot()
+    plt.title("Evolution of mean temperature with time - Its rising")
+    plt.show()
+    
+    meteo_grouped["precipitation_sum"].plot()
+    plt.title("Evolution of mean precipitation with time - Its remaining the same")
+    plt.show()
+    
+    meteo_grouped["soil_moisture_0_to_10cm_mean"].plot()
+    plt.title("Evolution of soil moisture with time - Its remaining the same")
+    plt.show()
+    
+
+
+
 if __name__ == "__main__":
     main()
