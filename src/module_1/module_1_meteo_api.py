@@ -10,7 +10,6 @@ COORDINATES = {
 }
 VARIABLES = "temperature_2m_mean,precipitation_sum,soil_moisture_0_to_10cm_mean"
 
-
 def main():
     print("Exercise module 1")
     meteo_data_Madrid = get_data_meteo_api(COORDINATES["Madrid"])
