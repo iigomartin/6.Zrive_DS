@@ -153,8 +153,15 @@ dmypy.json
 cython_debug/
 
 #AWS password and user
-/home/inigo/6.Zrive_DS/src/module_2/download_data.py
+src/module_2/download_data.py
 
+#we dont upload the data
+src/module_2/abandoned_carts.parquet
+src/module_2/inventory.parquet
+src/module_2/orders.parquet
+src/module_2/regulars.parquet
+src/module_2/users.parquet
+src/module_2/feature_frame.csv
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
