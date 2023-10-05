@@ -14,6 +14,7 @@ def main():
         
     #We need to download all of it (sampled-datasets and box-builder-dataset),
     # we do it step by step
+    #I gitignored all of these files
     s3_object1 = s3.Object(bucket_name='zrive-ds-data',key='groceries/sampled-datasets/abandoned_carts.parquet')
     s3_object1.download_file(Filename='src/module_2/abandoned_carts.parquet')
     s3_object2 = s3.Object(bucket_name='zrive-ds-data',key='groceries/sampled-datasets/inventory.parquet')
