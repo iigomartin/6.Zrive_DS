@@ -153,7 +153,7 @@ dmypy.json
 cython_debug/
 
 #AWS password and user
-src/module_2/download_data.py
+#src/module_2/download_data.py
 
 #we dont upload the data
 src/module_2/abandoned_carts.parquet
